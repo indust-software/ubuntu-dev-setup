@@ -3,6 +3,11 @@
 # Default variables
 # ------------------
 
+# check if user is root
+if [ $USER != 'root' ]
+  then echo "Please run this script with sudo"; exit 1;
+fi
+
 # Global constants
 PROMPT_TITLE="Ubuntu Development Setup";
 
@@ -16,7 +21,7 @@ NGINX_WWW_PATH=$HOME"/www";
 
 # Create welcome screen
 whiptail --title "$PROMPT_TITLE" \
---msgbox "This script will configure your development environment. It will install most common applications and configure system to be ready for developers.\n\n Choose Ok to continue or press ESC key to abort." 13 60
+--msgbox "This script will configure your development environment. It will install most common applications and configure system to be ready for developers.\n\n Choose Ok to continue." 13 60
 
 # Collect environments to be installed
 ENVIRONMENTS=$(whiptail --title "$PROMPT_TITLE" --checklist \
