@@ -10,8 +10,6 @@ GOLANG_VERSION=$(whiptail --title "$PROMPT_TITLE - GO" --radiolist \
 "1.5" "                     " OFF 3>&1 1>&2 2>&3)
 
 exitstatus=$?
-if [ $exitstatus = 0 ]; then
-    echo "The chosen version is:" $GOLANG_VERSION
-else
+if [ $exitstatus != 0 ]; then
     exit 1;
 fi
