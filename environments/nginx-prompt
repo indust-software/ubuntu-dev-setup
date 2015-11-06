@@ -1,0 +1,33 @@
+# !/bin/bash
+
+# Create prompts for nginx variables
+
+USE_NGINX='true';
+
+# Get MySQL password
+NGINX_MYSQL_PWD=$(whiptail --title "$PROMPT_TITLE - MYSQL" --passwordbox "Enter your MySQL root password and choose Ok to continue." 10 60 3>&1 1>&2 2>&3)
+
+exitstatus=$?
+if [ $exitstatus != 0 ]; then
+    exit 1;
+fi
+
+# Get PhpMyAdmin password
+NGINX_PHPMYADMIN_PWD=$(whiptail --title "$PROMPT_TITLE - PhpMyAdmin" --passwordbox "Enter your PhpMyAdmin root password and choose Ok to continue." 10 60 3>&1 1>&2 2>&3)
+
+exitstatus=$?
+if [ $exitstatus != 0 ]; then
+    exit 1;
+fi
+
+# Get Nginx root folder
+path=$(whiptail --title "$PROMPT_TITLE - WWW Path" --inputbox "What is your Nginx root path?" 10 60 $NGINX_WWW_PATH 3>&1 1>&2 2>&3)
+
+exitstatus=$?
+if [ $exitstatus = 0 ]; then
+  if [ "$path" != "" ]
+    then NGINX_WWW_PATH=$path;
+  fi
+else
+    exit 1
+fi
