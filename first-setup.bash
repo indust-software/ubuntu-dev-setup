@@ -3,9 +3,16 @@
 # Default variables
 # ------------------
 
+#sh -c 'echo $SUDO_USER'
+
+source ./helpers/prompter;
+
 # check if user is root
-if [ $USER != 'root' ]
-  then echo "Please run this script with sudo"; exit 1;
+if [ $USER != 'root' ]; then
+  newLine;
+  error "Please run this script with sudo";
+  newLine;
+  exit 1;
 fi
 
 # Global constants

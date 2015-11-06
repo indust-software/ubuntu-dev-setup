@@ -1,0 +1,40 @@
+# !/bin/bash
+
+
+# Helpers functions for displaying information in terminal
+
+YELLOW_COLOR=`tput setaf 3`
+GREEN_COLOR=`tput setaf 2`
+RED_COLOR=`tput setaf 1`
+BLUE_COLOR=`tput setaf 4`
+CYAN_COLOR=`tput setaf 6`
+NC=`tput sgr0`
+
+
+displaySetting() {
+  echo "$1: ${CYAN_COLOR}$2${NC}";
+}
+
+error() {
+  echo "${RED_COLOR}ERROR!: $1${NC}";
+}
+
+warning() {
+  echo "${YELLOW_COLOR}WARNING: $1${NC}";
+}
+
+info() {
+  echo "${GREEN_COLOR}$1${NC}";
+}
+
+block() {
+  echo "${BLUE_COLOR}";
+  echo "=====================================================";
+  echo "+++   $1";
+  echo "=====================================================";
+  echo "${NC}";
+}
+
+newLine() {
+  echo "";
+}
