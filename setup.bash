@@ -80,3 +80,5 @@ fi
 if [ "$USE_GOLANG" == 'true' ]
   then source ./installers/go-install;
 fi
+
+source ./installers/common-install;
