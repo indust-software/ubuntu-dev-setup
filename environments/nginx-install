@@ -50,8 +50,7 @@ sed -i "s|{{root_path}}|$NGINX_WWW_PATH|g" $def_config;
 info 'Creating root directory...'
 mkdir $NGINX_WWW_PATH;
 info 'Copying index file...'
-cp ./templates/index.php.tpl "$NGINX_WWW_PATH/index.php"
-chmod -R 777 $NGINX_WWW_PATH
+sudo -u $EX_USER cp ./templates/index.php.tpl "$NGINX_WWW_PATH/index.php"
 
 info 'Enabling mcrypt module...'
 php5enmod mcrypt
