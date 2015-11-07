@@ -1,0 +1,24 @@
+# !/bin/bash
+
+block 'Installing Go with GVM'
+
+info 'Installing dependencies...'
+apt-get -y -qq install curl git mercurial make binutils bison gcc build-essential
+
+info 'Installing GVM...'
+sudo -u $EX_USER bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+
+info 'Configuring GVM...'
+echo '[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"' >> $HOME"/.bashrc"
+sudo -s -u $EX_USER source $HOME/.gvm/scripts/gvm
+
+info 'Creating post install instructions for Go and GVM'
+sudo -s -u $EX_USER mkdir ./.tmp
+sudo -s -u $EX_USER touch ./.tmp/postinstall.sh
+sudo -s -u $EX_USER echo 'source $HOME/.bashrc' >> ./.tmp/postinstall.sh
+sudo -s -u $EX_USER echo 'info "Installing Go v1.4..."' >> ./.tmp/postinstall.sh
+sudo -s -u $EX_USER echo 'gvm install go1.4' >> ./.tmp/postinstall.sh
+# If user has select version 1.5, install it also
+if [ "$GOLANG_VERSION" == '"1.5"' ]; then
+  sudo -s -u $EX_USER echo 'echo "Install 1.5 also"' >> ./.tmp/postinstall.sh
+fi

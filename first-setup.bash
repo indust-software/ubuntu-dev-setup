@@ -74,3 +74,7 @@ fi
 if [ "$USE_NODE" == 'true' ]
   then source ./installers/node-install;
 fi
+
+if [ "$USE_GOLANG" == 'true' ]
+  then source ./installers/go-install;
+fi
