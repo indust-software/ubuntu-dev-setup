@@ -7,7 +7,7 @@ source ./helpers/prompter;
 
 # check if user is root
 if [ $USER != 'root' ]; then
-  error "Please run this script with sudo";
+  error "Please run install.sh";
   exit 1;
 fi
 
