@@ -61,6 +61,8 @@ for env in "${ENVIRONMENTS[@]}"; do
   fi
 done
 
+source ./prompts/git-prompt;
+
 #Preparing for installation
 
 block 'Prepare system for installation'
