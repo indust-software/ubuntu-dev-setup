@@ -23,6 +23,8 @@ ENV_GO=ON;
 # Default paths
 NGINX_WWW_PATH=$HOME"/www";
 
+source ./helpers/postinstall;
+
 # Create welcome screen
 whiptail --title "$PROMPT_TITLE" \
 --msgbox "This script will configure your development environment. It will install most common applications and configure system to be ready for developers.\n\n Choose Ok to continue." 13 60

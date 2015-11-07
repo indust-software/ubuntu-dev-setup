@@ -14,10 +14,10 @@ echo '[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"' >> $
 sudo -s -u $EX_USER source $HOME/.gvm/scripts/gvm
 
 info 'Creating post install instructions for Go and GVM'
-sudo -s -u $EX_USER echo 'source $HOME/.gvm/scripts/gvm' >> ./.tmp/postinstall.sh
-sudo -s -u $EX_USER echo 'info "Installing Go v1.4..."' >> ./.tmp/postinstall.sh
-sudo -s -u $EX_USER echo 'gvm install go1.4' >> ./.tmp/postinstall.sh
+postinstall 'source $HOME/.gvm/scripts/gvm'
+postinstall 'info "Installing Go v1.4..."'
+postinstall 'gvm install go1.4'
 # If user has select version 1.5, install it also
 if [ "$GOLANG_VERSION" == '"1.5"' ]; then
-  sudo -s -u $EX_USER echo 'echo "Install 1.5 also"' >> ./.tmp/postinstall.sh
+  postinstall 'echo "Install 1.5 also"'
 fi
