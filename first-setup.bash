@@ -15,6 +15,7 @@ fi
 
 # Global constants
 PROMPT_TITLE="Ubuntu Development Setup";
+EX_USER="$(sh -c 'echo $SUDO_USER')"
 
 # Default selected environments
 ENV_NGINX=ON;
@@ -32,7 +33,7 @@ whiptail --title "$PROMPT_TITLE" \
 ENVIRONMENTS=$(whiptail --title "$PROMPT_TITLE" --checklist \
 "Choose preferred environments that will be instaled on your machine:" 13 60 4 \
 "nginx" "Nginx + PHP5 + MySQL + PhpMyAdmin    " $ENV_NGINX \
-"node" "Node.js with brew" $ENV_NODE \
+"node" "Node.js with Homebrew" $ENV_NODE \
 "golang" "Go with GVM" $ENV_GO 3>&1 1>&2 2>&3)
 
 exitstatus=$?
@@ -70,4 +71,8 @@ apt-get -qq update
 # Install environments
 if [ "$USE_NGINX" == 'true' ]
   then source ./environments/nginx-install;
+fi
+
+if [ "$USE_NODE" == 'true' ]
+  then source ./environments/node-install;
 fi
