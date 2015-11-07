@@ -19,6 +19,9 @@ apt-get -y -qq install build-essential
 info 'Installing Node.js'
 sudo -u $EX_USER $HOME/.linuxbrew/bin/brew -v install node
 
+info 'Updating npm...'
+sudo -u $EX_USER env "PATH=$HOME/.linuxbrew/bin:$PATH" npm install -g npm
+
 # if node packages are selected - install it
 if [ "$NODE_PACKAGES" != "" ]; then
 

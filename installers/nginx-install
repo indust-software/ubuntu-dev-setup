@@ -42,7 +42,7 @@ cat ./templates/nginx-default.tpl > $def_config;
 sed -i "s|{{root_path}}|$NGINX_WWW_PATH|g" $def_config;
 
 info 'Creating root directory...'
-mkdir $NGINX_WWW_PATH;
+sudo -u $EX_USER mkdir $NGINX_WWW_PATH;
 info 'Copying index file...'
 sudo -u $EX_USER cp ./templates/index.php.tpl "$NGINX_WWW_PATH/index.php"
 
