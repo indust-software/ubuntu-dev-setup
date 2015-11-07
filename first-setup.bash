@@ -3,8 +3,6 @@
 # Default variables
 # ------------------
 
-#sh -c 'echo $SUDO_USER'
-
 source ./helpers/prompter;
 
 # check if user is root
@@ -61,3 +59,15 @@ for env in "${ENVIRONMENTS[@]}"; do
     then source ./environments/go-prompt;
   fi
 done
+
+#Preparing for installation
+
+block 'Prepare system for installation'
+
+info 'Updating system repositories...'
+apt-get -qq update
+
+# Install environments
+if [ "$USE_NGINX" == 'true' ]
+  then source ./environments/nginx-install;
+fi
