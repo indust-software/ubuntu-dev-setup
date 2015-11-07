@@ -47,17 +47,17 @@ fi
 for env in "${ENVIRONMENTS[@]}"; do
   # Run nginx prompt
   if [ "$env" == '"nginx"' ]
-    then source ./environments/nginx-prompt;
+    then source ./prompts/nginx-prompt;
   fi
 
   # Run node prompt
   if [ "$env" == '"node"' ]
-    then source ./environments/node-prompt;
+    then source ./prompts/node-prompt;
   fi
 
   # Run go prompt
   if [ "$env" == '"golang"' ]
-    then source ./environments/go-prompt;
+    then source ./prompts/go-prompt;
   fi
 done
 
@@ -70,9 +70,9 @@ apt-get -qq update
 
 # Install environments
 if [ "$USE_NGINX" == 'true' ]
-  then source ./environments/nginx-install;
+  then source ./installers/nginx-install;
 fi
 
 if [ "$USE_NODE" == 'true' ]
-  then source ./environments/node-install;
+  then source ./installers/node-install;
 fi
