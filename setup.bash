@@ -63,10 +63,13 @@ done
 
 source ./prompts/git-prompt;
 
+if (whiptail --title "$PROMPT_TITLE" --yes-button "Yes, install" --no-button "No, maybe later"  --yesno "All information is collected. Do you want to proceed?" 10 60) then
+    block 'Prepare system for installation';
+else
+    exit 1;
+fi
+
 #Preparing for installation
-
-block 'Prepare system for installation'
-
 info 'Updating system repositories...'
 apt-get -qq update
 
