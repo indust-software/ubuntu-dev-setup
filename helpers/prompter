@@ -16,15 +16,21 @@ displaySetting() {
 }
 
 error() {
-  echo "${RED_COLOR}ERROR!: $1${NC}";
+  newLine
+  echo "${RED_COLOR}==> ERROR!: $1${NC}";
+  newLine
 }
 
 warning() {
-  echo "${YELLOW_COLOR}WARNING: $1${NC}";
+  newLine
+  echo "${YELLOW_COLOR}==> WARNING: $1${NC}";
+  newLine
 }
 
 info() {
-  echo "${GREEN_COLOR}$1${NC}";
+  newLine
+  echo "${GREEN_COLOR}==>${NC} $1";
+  newLine
 }
 
 block() {
