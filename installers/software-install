@@ -1,0 +1,48 @@
+# !/bin/bash
+
+block 'Installing software'
+
+for soft in "${SOFTWARE[@]}"; do
+
+  if [ "$soft" == '"atom"' ]; then
+    info 'Downloading Atom...'
+    sudo -u $EX_USER wget https://github.com/atom/atom/releases/download/v1.1.0/atom-amd64.deb -O ./.tmp/atom-amd64.deb
+
+    info 'Installing Atom...'
+    debinstall ./.tmp/atom-amd64.deb
+  fi
+
+  if [ "$soft" == '"chrome"' ]; then
+    info 'Downloading Google Chrome...'
+    sudo -u $EX_USER wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O ./.tmp/chrome.deb
+
+    info 'Installing Google Chrome...'
+    debinstall ./.tmp/chrome.deb
+  fi
+
+  if [ "$soft" == '"vbox"' ]; then
+    info 'Installing Virtual Box...'
+    apt-get -y -qq update
+    apt-get -y -qq --force-yes install virtualbox-5.0
+  fi
+
+  if [ "$soft" == '"skype"' ]; then
+    info 'Adding Skype repository...'
+    dpkg --add-architecture i386
+    add-apt-repository -y "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
+
+    info 'Installing Skype...'
+    apt-get -y -qq update
+    apt-get -y -qq install skype
+  fi
+
+  if [ "$soft" == '"gimp"' ]; then
+    info 'Adding Gimp repository...'
+    add-apt-repository -y ppa:otto-kesselgulasch/gimp
+
+    info 'Installing Gimp...'
+    apt-get -y -qq update
+    apt-get -y -qq install gimp
+  fi
+
+done

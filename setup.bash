@@ -25,6 +25,7 @@ NGINX_WWW_PATH=$HOME"/www";
 SCRIPT_DIR="$(pwd)"
 
 source ./helpers/postinstall;
+source ./helpers/debinstall;
 
 # Create welcome screen
 whiptail --title "$PROMPT_TITLE" \
@@ -92,4 +93,8 @@ source ./installers/common-install;
 
 if [ "$GIT_SSH_SERVICES" != "" ]; then
   source ./installers/git-ssh-installer;
+fi
+
+if [ "$SOFTWARE" != "" ]; then
+  source ./installers/software-install;
 fi

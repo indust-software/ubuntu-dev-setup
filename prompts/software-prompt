@@ -7,7 +7,8 @@ SOFTWARE=$(whiptail --title "$PROMPT_TITLE - Software" --checklist \
 "Choose software you want to install:" 10 50 5 \
 "chrome" "Google Chrome             " ON \
 "skype" "Skype for linux " ON \
-"vbox" "Virtual Box " ON \
+"vbox" "Virtual Box 5.0 " ON \
+"gimp" "Gimp " ON \
 "atom" "Atom editor " ON 3>&1 1>&2 2>&3)
 
 exitstatus=$?
