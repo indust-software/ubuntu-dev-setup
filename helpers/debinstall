@@ -1,0 +1,6 @@
+# !/bin/bash
+
+debinstall() {
+  dpkg -i $1
+  apt-get --yes --fix-broken -qq install
+}
