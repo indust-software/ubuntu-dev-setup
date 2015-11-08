@@ -22,6 +22,7 @@ ENV_GO=ON;
 
 # Default paths
 NGINX_WWW_PATH=$HOME"/www";
+SCRIPT_DIR="$(pwd)"
 
 source ./helpers/postinstall;
 
@@ -87,3 +88,7 @@ if [ "$USE_GOLANG" == 'true' ]
 fi
 
 source ./installers/common-install;
+
+if [ "$GIT_SSH_SERVICES" != "" ]; then
+  source ./installers/git-ssh-installer;
+fi
