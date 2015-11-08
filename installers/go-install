@@ -18,6 +18,9 @@ postinstall 'source $HOME/.gvm/scripts/gvm'
 postinstall 'info "Installing Go v1.4..."'
 postinstall 'gvm install go1.4'
 # If user has select version 1.5, install it also
-if [ "$GOLANG_VERSION" == '"1.5"' ]; then
-  postinstall 'echo "Install 1.5 also"'
+if [ "$GOLANG_VERSION" == '1.5' ]; then
+  postinstall 'info "Installing Go v1.5..."'
+  postinstall 'gvm use go1.4'
+  postinstall 'export GOROOT_BOOTSTRAP=$GOROOT'
+  postinstall 'gvm install go1.5'
 fi
