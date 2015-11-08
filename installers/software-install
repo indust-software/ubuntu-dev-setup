@@ -10,6 +10,22 @@ for soft in "${SOFTWARE[@]}"; do
 
     info 'Installing Atom...'
     debinstall ./.tmp/atom-amd64.deb
+
+    if [ "$ATOM_PACK" != "" ]; then
+
+      info 'Installing Atom plugins'
+
+      # Build list of packages to install
+      pck_list='';
+      for package in "${ATOM_PACK[@]}"; do
+         temp="${package%\"}"
+         temp="${temp#\"}"
+         pck_list="$pck_list $temp";
+      done
+
+      # Install all packages
+      sudo -u $EX_USER apm install $pck_list
+    fi
   fi
 
   if [ "$soft" == '"chrome"' ]; then
@@ -21,6 +37,10 @@ for soft in "${SOFTWARE[@]}"; do
   fi
 
   if [ "$soft" == '"vbox"' ]; then
+    info 'Adding Virtual Box latest repository...'
+    apt-add-repository "deb http://download.virtualbox.org/virtualbox/debian trusty contrib"
+    sudo -u $EX_USER wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add
+
     info 'Installing Virtual Box...'
     apt-get -y -qq update
     apt-get -y -qq --force-yes install virtualbox-5.0
