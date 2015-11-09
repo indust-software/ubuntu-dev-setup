@@ -67,4 +67,16 @@ for soft in "${SOFTWARE[@]}"; do
     apt-get -y -qq install gimp
   fi
 
+  if [ "$soft" == '"vagrant"' ]; then
+    info 'Downloading latest Vagrant package...'
+    sudo -u $EX_USER wget https://releases.hashicorp.com/vagrant/ -O ./.tmp/vagrant_index.html
+    parsed_link=$( awk 'BEGIN{ RS="<a *href *= *\""} NR>1 {sub(/".*/,"");print $1; exit; }' ./.tmp/vagrant_index.html)
+    rm ./index.html
+    IFS='/' read -ra link_parts <<< "$parsed_link"
+    wget https://releases.hashicorp.com/vagrant/${link_parts[2]}/vagrant_${link_parts[2]}_x86_64.deb -O ./.tmp/vagrant.deb
+
+    info "Installing Vagrant ${link_parts[2]}..."
+    debinstall ./.tmp/vagrant.deb
+  fi
+
 done
