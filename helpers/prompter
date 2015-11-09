@@ -1,6 +1,5 @@
 # !/bin/bash
-
-
+#
 # Helpers functions for displaying information in terminal
 
 YELLOW_COLOR=`tput setaf 3`
@@ -10,29 +9,70 @@ BLUE_COLOR=`tput setaf 4`
 CYAN_COLOR=`tput setaf 6`
 NC=`tput sgr0`
 
-
+#######################################
+# Echo setting info with appropriate styling
+# Globals:
+#   none
+# Arguments:
+#   None
+# Returns:
+#   None
+#######################################
 displaySetting() {
   echo "$1: ${CYAN_COLOR}$2${NC}";
 }
 
+#######################################
+# Echo error with appropriate styling
+# Globals:
+#   none
+# Arguments:
+#   $1 Error text
+# Returns:
+#   None
+#######################################
 error() {
-  newLine
-  echo "${RED_COLOR}==> ERROR!: $1${NC}";
-  newLine
+  echo "${RED_COLOR}==> [$(date +'%Y-%m-%dT%H:%M:%S%z')]: $@${NC}" >&2
+  #echo "${RED_COLOR}==> ERROR!: $1${NC}";
 }
 
+#######################################
+# Echo warning with appropriate styling
+# Globals:
+#   none
+# Arguments:
+#   $1 Warning text
+# Returns:
+#   None
+#######################################
 warning() {
-  newLine
   echo "${YELLOW_COLOR}==> WARNING: $1${NC}";
-  newLine
 }
 
+#######################################
+# Echo information line with appropriate styling
+# Globals:
+#   none
+# Arguments:
+#   $1 Info text
+# Returns:
+#   None
+#######################################
 info() {
   newLine
   echo "${GREEN_COLOR}==>${NC} $1";
   newLine
 }
 
+#######################################
+# Write section block
+# Globals:
+#   none
+# Arguments:
+#   $1 Section block title
+# Returns:
+#   None
+#######################################
 block() {
   echo "${BLUE_COLOR}";
   echo "=====================================================";
@@ -43,6 +83,15 @@ block() {
   echo "${NC}";
 }
 
+#######################################
+# Create new empty line
+# Globals:
+#   none
+# Arguments:
+#   None
+# Returns:
+#   None
+#######################################
 newLine() {
   echo "";
 }

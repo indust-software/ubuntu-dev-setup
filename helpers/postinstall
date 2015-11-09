@@ -1,6 +1,18 @@
 # !/bin/bash
+#
+# Post installation helper methods
 
-
+#######################################
+# Write post install commands into
+# ./.tmp/postinstall.sh file which will be
+# executed after main scripts
+# Globals:
+#   none
+# Arguments:
+#   None
+# Returns:
+#   None
+#######################################
 postinstall() {
   sudo -s -u $EX_USER echo $1 >> ./.tmp/postinstall.sh
 }
