@@ -3,32 +3,40 @@
 
 # About script
 
-**Ubuntu-dev-setup** is a script that should help developers to configure their Ubuntu environment and prepare it for coding. It will install common software like text editors, system packages and all environments (like nginx with php, node.js, etc.).
+The script allows you to perform an unattended installation of the most commonly used software for developers as well as development environments like PHP, Node.js, Go. You can use it directly on a freshly installed Ubuntu system.
 
-The main purpose of this script is to make fresh Ubuntu installation easier because all that stuff is boring and time consuming. Now you can run that script and go get some coffee. **This script will install all that you need :)**
+The main idea of ​​this script is to carry out a complex system environments and programs with threrefore the best configuration which in most cases is tedious, boring and time-consuming task. The list of possible applications and environments ready to install with this script will continue to increase.
 
-# How to use
+The script offers two installation modes:
+- **Basic** - for those who need only basic configuration and installation with the default configuration
+- **Advanced** - for those who want to have more control over configuration, as well as the need to further simplify the software installation process.
 
-The one liner
------------------------------
+You can use this script anywhere, there are no licensing restrictions. Any comments on the script are welcome, as well as the wish to contribute to this project.
 
-To download and run script on freshly installed system, simply copy&paste below command into your terminal and press 'ENTER'.
+# Basic use
+
+Quick start-up
+-------------------------------
+
+To quickly download and run the script on a freshly installed operating system, copy and paste the text below into the system terminal. Then execute it.
+
+> Due to the fact that most operations require administrator privileges, you will be prompted for the root password.
 
 ```
 wget https://github.com/indust-software/ubuntu-dev-setup/archive/master.zip && unzip master.zip && cd ./ubuntu-dev-setup-master && chmod +x ./install.sh && ./install.sh
 ```
 
-Thats it! Now answer for several questions and after all go and get some coffee! Meanwhile script will install all applications and packages you need to work with.
+**And that's it !** You should see a welcome screen. In further steps, select the items you want to install and configure. After saving all the necessary information, the script will carry out installation and configuration of your system. This process can take tens of minutes (depending on the options you chose) so it's best go get a cup of coffee and relax ... :)
 
-> NOTE: Please make sure that your internet connection is working properly before runing the script.
+![Keep calm and drink coffee](https://s-media-cache-ak0.pinimg.com/236x/32/82/df/3282df596720e1489e6d0399d69123ea.jpg)
 
 Manual download
 --------------------------
 
 1. Go to [releases](https://github.com/indust-software/ubuntu-dev-setup/releases) and choose one of the release you want to download. Most likely the newest one.
 
-2. Unzip (or untar) downloaded folder and cd into it.
+2. Unzip (or untar) downloaded file and cd into extracted directory.
 
-3. Run `chmod +x ./install.sh && ./install.sh`. It will run installator. You will be prompted for sudo password.
+3. Run `chmod +x ./install.sh && ./install.sh`.
 
-4. Answer for several configuration questions and after all, script will install all you need.
+> IMPORTANT! : In project root directory there is also `setup.bash` script. Don't execute it! You should only run `install.sh` file.
