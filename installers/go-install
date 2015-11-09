@@ -1,4 +1,6 @@
 # !/bin/bash
+#
+# Perform installation of Go environment selected by user
 
 block 'Installing Go with GVM'
 

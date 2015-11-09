@@ -1,4 +1,8 @@
 # !/bin/bash
+#
+# Performs installation og Nginx server as a localhost. It also configures Nginx and install
+# additional software for Nginx like: PHP, MySQL, PhpMyAdmin and so on. All what is neede to run and development
+# PHP based websites and software.
 
 block 'Installing Nginx server'
 

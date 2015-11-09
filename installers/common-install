@@ -1,4 +1,8 @@
 # !/bin/bash
+#
+# Performs common installation of the software and system configuration.
+# This script is mandatory and executed after environments installation. Should be used to run usefull, not user
+# related scripts like installing system packages often used by 3rd party software.
 
 block 'Common instalation and configuration'
 

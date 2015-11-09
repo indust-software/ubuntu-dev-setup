@@ -1,4 +1,7 @@
 # !/bin/bash
+#
+# Performs installation of Node.js with Homebrew. This will install most recent Node.js version and will install
+# it into user home directory so there will be no need for using sudo and no more write access errors.
 
 block 'Installing Node.js with Homebrew'
 

@@ -1,4 +1,6 @@
 # !/bin/bash
+#
+# Performs installation and configuration SSH connection for Github.com and/or Bitbucket
 
 block 'Configuring Git SSH'
 

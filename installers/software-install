@@ -1,4 +1,6 @@
 # !/bin/bash
+#
+# Performs additional software installation like text editors.
 
 block 'Installing software'
 
