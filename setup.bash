@@ -1,4 +1,7 @@
 # !/bin/bash
+#
+# Main installation script. Should be run with sudo privilages and most likely run from ./install.sh script.
+# User should not execute this script directly.
 
 # Default variables
 # ------------------

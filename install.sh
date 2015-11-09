@@ -1,4 +1,7 @@
 # !/bin/bash
+#
+# Wrapper for installation script. This script should be executed by user as it will run main installation script
+# with sudo privilages and then run postinstall script without sudo for those commands that require it.
 
 source ./helpers/prompter;
 
