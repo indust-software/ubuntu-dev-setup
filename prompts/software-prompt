@@ -2,14 +2,13 @@
 
 # Create prompt for software installation
 
-
 SOFTWARE=$(whiptail --title "$PROMPT_TITLE - Software" --checklist \
-"Choose software you want to install:" 10 50 5 \
-"chrome" "Google Chrome             " ON \
-"skype" "Skype for linux " ON \
-"vbox" "Virtual Box 5.0 " ON \
-"gimp" "Gimp " ON \
-"atom" "Atom editor " ON 3>&1 1>&2 2>&3)
+        "Choose software you want to install:" 10 50 5 \
+        "chrome" "Google Chrome             " ON \
+        "skype" "Skype for linux " ON \
+        "vbox" "Virtual Box 5.0 " ON \
+        "gimp" "Gimp " ON \
+        "atom" "Atom editor " ON 3>&1 1>&2 2>&3)
 
 exitstatus=$?
 if [ $exitstatus = 0 ]; then
@@ -21,25 +20,24 @@ fi
 for soft in "${SOFTWARE[@]}"; do
 
   if [ "$soft" == '"atom"' ]; then
-
     ATOM_PACK=$(whiptail --title "$PROMPT_TITLE - Software - Atom" --checklist \
-    "Choose what atom packages you want to install:" 20 80 12 \
-    "editorconfig" "Editorconfig support for Atom           " ON \
-    "file-icons" "File extension icons in tree view " ON \
-    "git-go" "Drop down terminal for git " ON \
-    "git-log" "Graphs your git commit " ON \
-    "git-plus" "Do git things without terminal " ON \
-    "go-plus" "Adds Go Lang support in Atom " ON \
-    "jshint" "Validate JS with JSHint " ON \
-    "linter-govet" "Check go files with go vet tool " ON \
-    "linter-jshint" "Check JS files with JSHint " ON \
-    "minimap" "Preview of the full source code " ON \
-    "minimap-git-diff" "Git diff binding for minimap " ON \
-    "open-git-modified-files" "Opens git modified files " ON \
-    "pigments" "Display colors in project files " ON \
-    "save-autorun" "Autorun shell commands on file save " ON \
-    "seti-icons" "Awesome icons pack " ON \
-    "toggle-quotes" "Toggle single and double quotes " ON 3>&1 1>&2 2>&3)
+              "Choose what atom packages you want to install:" 20 80 12 \
+              "editorconfig" "Editorconfig support for Atom           " ON \
+              "file-icons" "File extension icons in tree view " ON \
+              "git-go" "Drop down terminal for git " ON \
+              "git-log" "Graphs your git commit " ON \
+              "git-plus" "Do git things without terminal " ON \
+              "go-plus" "Adds Go Lang support in Atom " ON \
+              "jshint" "Validate JS with JSHint " ON \
+              "linter-govet" "Check go files with go vet tool " ON \
+              "linter-jshint" "Check JS files with JSHint " ON \
+              "minimap" "Preview of the full source code " ON \
+              "minimap-git-diff" "Git diff binding for minimap " ON \
+              "open-git-modified-files" "Opens git modified files " ON \
+              "pigments" "Display colors in project files " ON \
+              "save-autorun" "Autorun shell commands on file save " ON \
+              "seti-icons" "Awesome icons pack " ON \
+              "toggle-quotes" "Toggle single and double quotes " ON 3>&1 1>&2 2>&3)
 
     exitstatus=$?
     if [ $exitstatus = 0 ]; then
@@ -47,7 +45,5 @@ for soft in "${SOFTWARE[@]}"; do
     else
         ATOM_PACK=''
     fi
-
-
   fi
 done

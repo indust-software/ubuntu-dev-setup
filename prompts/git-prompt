@@ -2,7 +2,8 @@
 
 
 # Get Git user name
-GIT_USER=$(whiptail --title "$PROMPT_TITLE - Git" --inputbox "What is your Git user name (eg. John Doe)?" 10 60 3>&1 1>&2 2>&3)
+GIT_USER=$(whiptail --title "$PROMPT_TITLE - Git" --inputbox "What is your Git user name (eg. John Doe)?" 10 60 \
+           3>&1 1>&2 2>&3)
 
 exitstatus=$?
 if [ $exitstatus != 0 ]; then
@@ -20,9 +21,9 @@ fi
 
 # Collect ssh config for git
 GIT_SSH_SERVICES=$(whiptail --title "$PROMPT_TITLE - Git SSH" --checklist \
-"Select for which services you want to create ssh connection keys:" 16 58 8 \
-"github" "             " ON \
-"bitbucket" "  " ON 3>&1 1>&2 2>&3)
+                  "Select for which services you want to create ssh connection keys:" 16 58 8 \
+                  "github" "             " ON \
+                  "bitbucket" "  " ON 3>&1 1>&2 2>&3)
 
 exitstatus=$?
 if [ $exitstatus = 0 ]; then
@@ -35,9 +36,10 @@ GITHUB_SSH_PASS=''
 BITBUCKET_SSH_PASS=''
 
 for ssh_service in "${GIT_SSH_SERVICES[@]}"; do
-  # Run nginx prompt
   if [ "$ssh_service" == '"github"' ]; then
-    GITHUB_SSH_PASS=$(whiptail --title "$PROMPT_TITLE - Git SSH" --passwordbox "Enter your SSH passphrase for github and choose Ok to continue." 10 60 3>&1 1>&2 2>&3)
+    GITHUB_SSH_PASS=$(whiptail --title "$PROMPT_TITLE - Git SSH" \
+                    --passwordbox "Enter your SSH passphrase for github \
+                      and choose Ok to continue." 10 60 3>&1 1>&2 2>&3)
     exitstatus=$?
     if [ $exitstatus != 0 ]; then
         exit 1;
@@ -45,7 +47,9 @@ for ssh_service in "${GIT_SSH_SERVICES[@]}"; do
   fi
 
   if [ "$ssh_service" == '"bitbucket"' ]; then
-    BITBUCKET_SSH_PASS=$(whiptail --title "$PROMPT_TITLE - Git SSH" --passwordbox "Enter your SSH passphrase for bitbucket and choose Ok to continue." 10 60 3>&1 1>&2 2>&3)
+    BITBUCKET_SSH_PASS=$(whiptail --title "$PROMPT_TITLE - Git SSH" \
+                        --passwordbox "Enter your SSH passphrase for bitbucket \
+                          and choose Ok to continue." 10 60 3>&1 1>&2 2>&3)
     exitstatus=$?
     if [ $exitstatus != 0 ]; then
         exit 1;

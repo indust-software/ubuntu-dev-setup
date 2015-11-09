@@ -3,10 +3,12 @@
 block 'Installing Node.js with Homebrew'
 
 info 'Installing prerequisites...'
-apt-get -y -qq install build-essential curl git m4 ruby texinfo libbz2-dev libcurl4-openssl-dev libexpat-dev libncurses-dev zlib1g-dev
+apt-get -y -qq install \
+  build-essential curl git m4 ruby texinfo libbz2-dev libcurl4-openssl-dev libexpat-dev libncurses-dev zlib1g-dev
 
 info 'Installing Homebrew...'
-sudo -u $EX_USER echo '\n' | sudo -u $EX_USER ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install)"
+sudo -u $EX_USER echo '\n' | \
+  sudo -u $EX_USER ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install)"
 
 info 'Configuring brew...'
 echo 'export PATH="$HOME/.linuxbrew/bin:$PATH"' >> $HOME"/.bashrc"
@@ -24,9 +26,7 @@ sudo -u $EX_USER env "PATH=$HOME/.linuxbrew/bin:$PATH" npm install -g npm
 
 # if node packages are selected - install it
 if [ "$NODE_PACKAGES" != "" ]; then
-
   block 'Installing Node.js global packages'
-
   # Build list of packages to install
   pck_list='';
   for package in "${NODE_PACKAGES[@]}"; do
@@ -47,5 +47,3 @@ apt-get -y -qq install ruby ruby-dev graphicsmagick
 gem install sass
 gem install compass
 gem install livingstyleguide
-
-info 'Node.js installed successfully!!'

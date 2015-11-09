@@ -29,7 +29,9 @@ source ./helpers/debinstall;
 
 # Create welcome screen
 whiptail --title "$PROMPT_TITLE" \
---msgbox "This script will configure your development environment. It will install most common applications and configure system to be ready for developers.\n\n Choose Ok to continue." 13 60
+--msgbox "This script will configure your development environment. It will \
+install most common applications and configure system to be ready for \
+developers.\n\n Choose Ok to continue." 13 60
 
 # Collect environments to be installed
 ENVIRONMENTS=$(whiptail --title "$PROMPT_TITLE" --checklist \
@@ -66,7 +68,9 @@ done
 source ./prompts/git-prompt;
 source ./prompts/software-prompt;
 
-if (whiptail --title "$PROMPT_TITLE" --yes-button "Yes, install" --no-button "No, maybe later"  --yesno "All information is collected. Do you want to proceed?" 10 60) then
+if (whiptail --title "$PROMPT_TITLE" --yes-button "Yes, install" \
+    --no-button "No, maybe later" \
+    --yesno "All information is collected. Do you want to proceed?" 10 60) then
     block 'Prepare system for installation';
 else
     exit 1;
