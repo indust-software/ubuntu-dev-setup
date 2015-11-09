@@ -1,5 +1,5 @@
 # !/bin/bash
-
+#
 # Create prompts for nginx variables
 
 USE_NGINX='true';

@@ -1,5 +1,6 @@
 # !/bin/bash
-
+#
+# Contains prompts for git setup
 
 # Get Git user name
 GIT_USER=$(whiptail --title "$PROMPT_TITLE - Git" --inputbox "What is your Git user name (eg. John Doe)?" 10 60 \

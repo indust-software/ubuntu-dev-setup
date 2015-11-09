@@ -1,5 +1,5 @@
 # !/bin/bash
-
+#
 # Create prompt for software installation
 
 SOFTWARE=$(whiptail --title "$PROMPT_TITLE - Software" --checklist \
