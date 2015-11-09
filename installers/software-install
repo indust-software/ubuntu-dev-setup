@@ -40,7 +40,7 @@ for soft in "${SOFTWARE[@]}"; do
 
   if [ "$soft" == '"vbox"' ]; then
     info 'Adding Virtual Box latest repository...'
-    apt-add-repository "deb http://download.virtualbox.org/virtualbox/debian trusty contrib"
+    apt-add-repository "deb http://download.virtualbox.org/virtualbox/debian $DISTRIB_CODENAME contrib"
     sudo -u $EX_USER wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add
 
     info 'Installing Virtual Box...'

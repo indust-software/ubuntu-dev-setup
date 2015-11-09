@@ -17,6 +17,12 @@ fi
 # Global constants
 PROMPT_TITLE="Ubuntu Development Setup";
 EX_USER="$(sh -c 'echo $SUDO_USER')"
+# get system version info variables
+# DISTRIB_ID
+# DISTRIB_RELEASE
+# DISTRIB_CODENAME
+# DISTRIB_DESCRIPTION
+source /etc/lsb-release
 
 # Default selected environments
 ENV_NGINX=ON;
