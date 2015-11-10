@@ -1,5 +1,5 @@
-# ubuntu-dev-setup
-> Setup script that automatize creation of developer environment
+# Ubuntulator v0.1.0
+> The script for automatic preparation of Ubuntu Linux as a development environment.
 
 # About script
 
@@ -12,6 +12,11 @@ The script offers two installation modes:
 - **Advanced** - for those who want to have more control over configuration, as well as the need to further simplify the software installation process.
 
 You can use this script anywhere, there are no licensing restrictions. Any comments on the script are welcome, as well as the wish to contribute to this project.
+
+# Compatibility
+
+- **Ubuntu 14.04.3** - status stable
+- **Ubuntu 15.04** - status unknown
 
 # Basic use
 
@@ -26,7 +31,7 @@ To quickly download and run the script on a freshly installed operating system, 
 wget https://github.com/indust-software/ubuntu-dev-setup/archive/master.zip && unzip master.zip && cd ./ubuntu-dev-setup-master && chmod +x ./install.sh && ./install.sh
 ```
 
-**And that's it !** You should see a welcome screen. In further steps, select the items you want to install and configure. After saving all the necessary information, the script will carry out installation and configuration of your system. This process can take tens of minutes (depending on the options you chose) so it's best go get a cup of coffee and relax ... :)
+**And that's it !** You should see a welcome screen. In further steps, select the items you want to install and configure. After saving all the necessary information, the script will carry out installation and configuration of your system. This process can take tens of minutes (depending on the options you chose) so...
 
 ![Keep calm and drink coffee](https://s-media-cache-ak0.pinimg.com/236x/32/82/df/3282df596720e1489e6d0399d69123ea.jpg)
 
@@ -40,3 +45,9 @@ Manual download
 3. Run `chmod +x ./install.sh && ./install.sh`.
 
 > IMPORTANT! : In project root directory there is also `setup.bash` script. Don't execute it! You should only run `install.sh` file.
+
+# Contents
+
+A list of installed applications is constantly increasing. But if you think that the script should find something else that you have two options:
+- Contribute - fork a repository, add software installer or system configuration script and PR to a development branch
+- Report - Create an appropriate topic in the issues or append to an existing one.
