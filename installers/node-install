@@ -1,0 +1,60 @@
+# !/bin/bash
+#
+# Performs installation of Node.js with Homebrew. This will install most recent Node.js version and will install
+# it into user home directory so there will be no need for using sudo and no more write access errors.
+
+block 'Installing Node.js with Homebrew'
+
+info 'Installing prerequisites...'
+apt-get -y -qq install \
+  build-essential curl git m4 ruby texinfo libbz2-dev libcurl4-openssl-dev libexpat-dev libncurses-dev zlib1g-dev
+
+info 'Installing Homebrew...'
+sudo -u $EX_USER echo '\n' | \
+  sudo -u $EX_USER ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install)"
+
+info 'Configuring brew...'
+echo 'export PATH="$HOME/.linuxbrew/bin:$PATH"' >> $HOME"/.bashrc"
+echo 'export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"' >> $HOME"/.bashrc"
+echo 'export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"' >> $HOME"/.bashrc"
+
+info 'Installing Homebrew dependencies...'
+apt-get -y -qq install build-essential
+
+info 'Installing Node.js'
+sudo -u $EX_USER $HOME/.linuxbrew/bin/brew -v install node
+
+info 'Updating npm...'
+sudo -u $EX_USER env "PATH=$HOME/.linuxbrew/bin:$PATH" npm install -g npm
+
+# if node packages are selected - install it
+if [ "$NODE_PACKAGES" != "" ]; then
+  block 'Installing Node.js global packages'
+  # Build list of packages to install
+  pck_list='';
+  for package in "${NODE_PACKAGES[@]}"; do
+     temp="${package%\"}"
+     temp="${temp#\"}"
+     pck_list="$pck_list $temp";
+  done
+
+  info 'Executing npm install...'
+  # Install all packages
+  sudo -u $EX_USER env "PATH=$HOME/.linuxbrew/bin:$PATH" npm install -g $pck_list
+fi
+
+block 'Common dependencies for Node.js'
+
+info 'Installing most common dependencies for Node.js and its packages...'
+apt-get -y -qq install ruby ruby-dev graphicsmagick
+gem install sass
+gem install compass
+gem install livingstyleguide
+
+
+installTest 'Node.js' 'node'
+installTest 'NPM' 'npm'
+installTest 'Ruby' 'ruby'
+installTest 'sass' 'sass'
+installTest 'compass' 'compass'
+installTest 'livingstyleguide' 'livingstyleguide'

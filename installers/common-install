@@ -1,0 +1,20 @@
+# !/bin/bash
+#
+# Performs common installation of the software and system configuration.
+# This script is mandatory and executed after environments installation. Should be used to run usefull, not user
+# related scripts like installing system packages often used by 3rd party software.
+
+block 'Common instalation and configuration'
+
+info 'Installing common system packages...'
+apt-get -y -qq update
+apt-get -y -qq install \
+  git graphicsmagick curl mercurial make binutils gcc build-essential mc libxss1 libappindicator1 libindicator7
+
+info 'Create post install GIT configuration'
+postinstall 'info "Configure GIT username and email"'
+postinstall "git config --global user.name \"$GIT_USER\""
+postinstall "git config --global user.email $GIT_EMAIL"
+
+installTest 'git' 'git'
+installTest 'Midnight Commander' 'mc'

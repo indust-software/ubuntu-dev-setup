@@ -1,0 +1,14 @@
+# !/bin/bash
+#
+# Create prompt for go version
+
+USE_GOLANG='true';
+
+GOLANG_VERSION=$(whiptail --title "$PROMPT_TITLE - GO" --radiolist "What is Go version of your choice?" 10 40 4 \
+"1.4" "                     " ON \
+"1.5" "                     " OFF 3>&1 1>&2 2>&3)
+
+exitstatus=$?
+if [ $exitstatus != 0 ]; then
+    exit 1;
+fi

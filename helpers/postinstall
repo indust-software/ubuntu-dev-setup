@@ -1,0 +1,52 @@
+# !/bin/bash
+#
+# Post installation helper methods
+
+#######################################
+# Write post install commands into
+# ./.tmp/postinstall.sh file which will be
+# executed after main scripts
+# Globals:
+#   none
+# Arguments:
+#   $1 Command string
+# Returns:
+#   None
+#######################################
+postinstall() {
+  sudo -s -u $EX_USER echo $1 >> ./.tmp/postinstall.sh
+}
+
+#######################################
+# Check if given application is installed
+# Globals:
+#   none
+# Arguments:
+#   $1 Application name to test
+# Returns:
+#   None
+#######################################
+testApp() {
+  if hash $1 2>/dev/null; then
+        echo "${GREEN_COLOR}OK${NC}"
+    else
+        echo "${CYAN_COLOR}fail${NC}"
+  fi
+}
+
+#######################################
+# Write installation test commands
+# into ./.tmp/test.sh file
+# Globals:
+#   none
+# Arguments:
+#   $1 test name
+#   $2 test command
+# Returns:
+#   None
+#######################################
+installTest() {
+  local title="==> Testing $1 installation... "
+  sudo -s -u $EX_USER echo "printf '$title'" >> ./.tmp/test.sh
+  sudo -s -u $EX_USER echo "testApp '$2'" >> ./.tmp/test.sh
+}

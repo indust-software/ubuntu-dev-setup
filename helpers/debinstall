@@ -1,0 +1,17 @@
+# !/bin/bash
+#
+# Installation from debian files
+
+#######################################
+# Install application from debian file
+# Globals:
+#   None
+# Arguments:
+#   $1 Path to debian file
+# Returns:
+#   None
+#######################################
+debinstall() {
+  dpkg -i $1
+  apt-get --yes --fix-broken -qq install
+}

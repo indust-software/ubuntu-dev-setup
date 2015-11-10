@@ -1,0 +1,95 @@
+# !/bin/bash
+#
+# Performs additional software installation like text editors.
+
+block 'Installing software'
+
+for soft in "${SOFTWARE[@]}"; do
+
+  if [ "$soft" == '"atom"' ]; then
+    info 'Downloading Atom...'
+    sudo -u $EX_USER wget https://github.com/atom/atom/releases/download/v1.1.0/atom-amd64.deb -O ./.tmp/atom-amd64.deb
+
+    info 'Installing Atom...'
+    debinstall ./.tmp/atom-amd64.deb
+
+    installTest 'Atom' 'atom'
+    installTest 'Atom Package Manager' 'apm'
+
+    if [ "$ATOM_PACK" != "" ]; then
+
+      info 'Installing Atom plugins'
+
+      # Build list of packages to install
+      pck_list='';
+      for package in "${ATOM_PACK[@]}"; do
+         temp="${package%\"}"
+         temp="${temp#\"}"
+         pck_list="$pck_list $temp";
+      done
+
+      # Install all packages
+      sudo -u $EX_USER apm install $pck_list
+    fi
+  fi
+
+  if [ "$soft" == '"chrome"' ]; then
+    info 'Downloading Google Chrome...'
+    sudo -u $EX_USER wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O ./.tmp/chrome.deb
+
+    info 'Installing Google Chrome...'
+    debinstall ./.tmp/chrome.deb
+
+    installTest 'Google Chrome' 'google-chrome'
+  fi
+
+  if [ "$soft" == '"vbox"' ]; then
+    info 'Adding Virtual Box latest repository...'
+    apt-add-repository "deb http://download.virtualbox.org/virtualbox/debian $DISTRIB_CODENAME contrib"
+    sudo -u $EX_USER wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add
+
+    info 'Installing Virtual Box...'
+    apt-get -y -qq update
+    apt-get -y -qq --force-yes install virtualbox-5.0
+
+    installTest 'Virtual Box' 'virtualbox'
+  fi
+
+  if [ "$soft" == '"skype"' ]; then
+    info 'Adding Skype repository...'
+    dpkg --add-architecture i386
+    add-apt-repository -y "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
+
+    info 'Installing Skype...'
+    apt-get -y -qq update
+    apt-get -y -qq install skype
+
+    installTest 'Skype' ''
+  fi
+
+  if [ "$soft" == '"gimp"' ]; then
+    info 'Adding Gimp repository...'
+    add-apt-repository -y ppa:otto-kesselgulasch/gimp
+
+    info 'Installing Gimp...'
+    apt-get -y -qq update
+    apt-get -y -qq install gimp
+
+    installTest 'Gimp' 'gimp'
+  fi
+
+  if [ "$soft" == '"vagrant"' ]; then
+    info 'Downloading latest Vagrant package...'
+    sudo -u $EX_USER wget https://releases.hashicorp.com/vagrant/ -O ./.tmp/vagrant_index.html
+    parsed_link=$( awk 'BEGIN{ RS="<a *href *= *\""} NR>1 {sub(/".*/,"");print $1; exit; }' ./.tmp/vagrant_index.html)
+    rm ./.tmp/vagrant_index.html
+    IFS='/' read -ra link_parts <<< "$parsed_link"
+    wget https://releases.hashicorp.com/vagrant/${link_parts[2]}/vagrant_${link_parts[2]}_x86_64.deb -O ./.tmp/vagrant.deb
+
+    info "Installing Vagrant ${link_parts[2]}..."
+    debinstall ./.tmp/vagrant.deb
+
+    installTest 'Vagrant' 'vagrant'
+  fi
+
+done

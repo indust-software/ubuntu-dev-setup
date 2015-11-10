@@ -1,0 +1,24 @@
+# !/bin/bash
+#
+# Create prompts for node packages
+
+USE_NODE='true';
+
+# Collect node packages to be installed
+NODE_PACKAGES=$(whiptail --title "$PROMPT_TITLE - Node Packages" --checklist \
+              "Choose global node.js packages to install:" 16 68 8 \
+              "yo" "Yeoman             " ON \
+              "generator-generator" "Yeoman generic generator  " ON \
+              "generator-wordpress" "Yeoman wordpress generator  " ON \
+              "webpack" "Webpack" ON \
+              "grunt-cli" "Grunt command line interface    " ON \
+              "grunt" "Grunt task runner" ON \
+              "gulp" "Gulp task runner" ON \
+              "bower" "Bower" ON 3>&1 1>&2 2>&3)
+
+exitstatus=$?
+if [ $exitstatus = 0 ]; then
+    NODE_PACKAGES=($NODE_PACKAGES);
+else
+    NODE_PACKAGES=''
+fi

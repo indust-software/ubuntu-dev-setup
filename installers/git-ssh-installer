@@ -1,0 +1,36 @@
+# !/bin/bash
+#
+# Performs installation and configuration SSH connection for Github.com and/or Bitbucket
+
+block 'Configuring Git SSH'
+
+key_path=$HOME"/.ssh"
+
+info 'Installing XClip'
+apt-get -y -qq install xclip
+
+info 'Creating SSH directory'
+sudo -u $EX_USER mkdir $key_path
+
+sudo -u $EX_USER echo "echo $GITHUB_SSH_PASS" > ./.tmp/github_ps.password
+sudo -u $EX_USER echo "echo $BITBUCKET_SSH_PASS" > ./.tmp/bitbucket_ps.password
+
+if [ "$GITHUB_SSH_PASS" != "" ]; then
+  info 'Creating post install instructions for Github SSH'
+  postinstall "cd $key_path"
+  postinstall "info 'Configure SSH for Github...'";
+  postinstall "ssh-keygen -t rsa -b 4096 -C \"$GIT_EMAIL\" -f github_rsa -N '$GITHUB_SSH_PASS'"
+  postinstall 'eval "$(ssh-agent -s)"'
+  postinstall "cat $key_path/github_rsa | SSH_ASKPASS=$SCRIPT_DIR/.tmp/github_ps.password ssh-add"
+  postinstall "cd $SCRIPT_DIR"
+fi
+
+if [ "$BITBUCKET_SSH_PASS" != "" ]; then
+  info 'Creating post install instructions for Bitbucket SSH'
+  postinstall "cd $key_path"
+  postinstall "info 'Configure SSH for Bitbucket...'";
+  postinstall "ssh-keygen -t rsa -b 4096 -C \"$GIT_EMAIL\" -f bitbucket_rsa -N '$BITBUCKET_SSH_PASS'"
+  postinstall 'eval "$(ssh-agent -s)"'
+  postinstall "cat $key_path/bitbucket_rsa | SSH_ASKPASS=$SCRIPT_DIR/.tmp/bitbucket_ps.password ssh-add"
+  postinstall "cd $SCRIPT_DIR"
+fi
