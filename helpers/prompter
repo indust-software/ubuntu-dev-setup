@@ -9,18 +9,6 @@ BLUE_COLOR=`tput setaf 4`
 CYAN_COLOR=`tput setaf 6`
 NC=`tput sgr0`
 
-#######################################
-# Echo setting info with appropriate styling
-# Globals:
-#   none
-# Arguments:
-#   None
-# Returns:
-#   None
-#######################################
-displaySetting() {
-  echo "$1: ${CYAN_COLOR}$2${NC}";
-}
 
 #######################################
 # Echo error with appropriate styling
@@ -34,19 +22,6 @@ displaySetting() {
 error() {
   echo "${RED_COLOR}==> [$(date +'%Y-%m-%dT%H:%M:%S%z')]: $@${NC}" >&2
   #echo "${RED_COLOR}==> ERROR!: $1${NC}";
-}
-
-#######################################
-# Echo warning with appropriate styling
-# Globals:
-#   none
-# Arguments:
-#   $1 Warning text
-# Returns:
-#   None
-#######################################
-warning() {
-  echo "${YELLOW_COLOR}==> WARNING: $1${NC}";
 }
 
 #######################################
