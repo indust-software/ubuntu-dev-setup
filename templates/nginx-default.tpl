@@ -2,6 +2,8 @@ server {
         listen 80 default_server;
         listen [::]:80 default_server;
 
+        listen 443 ssl;
+
         root {{root_path}};
         index index.php index.html index.htm;
         server_name localhost;
@@ -16,6 +18,9 @@ server {
         location = /50x.html {
                 root /usr/share/nginx/www;
         }
+
+        ssl_certificate {{cert_path}};
+        ssl_certificate_key {{cert_key_path}};
 
         location ~ \.php$ {
                 try_files $uri =404;

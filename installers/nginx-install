@@ -46,6 +46,8 @@ def_config=/etc/nginx/sites-available/default;
 cat ./templates/nginx-default.tpl > $def_config;
 # Replace variables in vhost configuration file
 sed -i "s|{{root_path}}|$NGINX_WWW_PATH|g" $def_config;
+sed -i "s|{{cert_path}}|$SSL_PATH/nginx.crt|g" $def_config;
+sed -i "s|{{cert_key_path}}|$SSL_PATH/nginx.key|g" $def_config;
 
 info 'Creating root directory...'
 sudo -u $EX_USER mkdir $NGINX_WWW_PATH;
@@ -72,6 +74,17 @@ ln -s /usr/share/phpmyadmin/ $NGINX_WWW_PATH
 
 info 'Restarting Nginx server...'
 service nginx restart
+
+info 'Creating SSL certificate...'
+sudo -u $EX_USER mkdir $SSL_PATH
+openssl req -x509 \
+            -nodes \
+            -days 365 \
+            -newkey rsa:4096 \
+            -subj $NGINX_SSL_OPTIONS \
+            -keyout $SSL_PATH/nginx.key \
+            -out $SSL_PATH/nginx.crt
+
 
 installTest 'nginx' 'nginx'
 installTest 'mysql' 'mysql'

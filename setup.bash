@@ -38,7 +38,9 @@ ENV_GO=ON;
 
 # Default paths
 NGINX_WWW_PATH=$HOME"/www";
+NGINX_SSL_OPTIONS='/C=US/ST=Denial/L=Springfield/O=Dis/CN=www.example.com'
 SCRIPT_DIR="$(pwd)"
+SSL_PATH=$HOME/.ssl
 
 source ./helpers/postinstall;
 source ./helpers/debinstall;
