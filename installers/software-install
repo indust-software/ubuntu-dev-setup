@@ -126,4 +126,37 @@ for soft in "${SOFTWARE[@]}"; do
 
   fi
 
+  if [ "$soft" == '"subl"' ]; then
+    # ###
+    # Big thanks to simonewebdesign for this installation procedure
+    # ###
+    info 'Fetch the latest sublime build version number...'
+    subl_build=$(echo $(curl http://www.sublimetext.com/3) | sed -rn "s#.*The latest build is ([0-9]+)..*#\1#p")
+
+    subl_url="http://c758482.r82.cf2.rackcdn.com/sublime_text_3_build_{$subl_build}_{$ARCHITECTURE}.tar.bz2"
+    subl_install_dir="/opt/sublime_text"
+
+    info 'Installing Sublime Text 3'
+    sudo -u $EX_USER curl -o $HOME/st3.tar.bz2 $subl_url
+    if sudo -u $EX_USER tar -xf $HOME/st3.tar.bz2 --directory=$HOME; then
+      # Remove the installation folder and the symlink, they might already exist
+      rm -rf $subl_install_dir /bin/subl
+      mv $HOME/sublime_text_3 $subl_install_dir
+      ln -s $subl_install_dir/sublime_text /bin/subl
+    fi
+    sudo -u $EX_USER rm $HOME/st3.tar.bz2
+
+    info 'Installing Sublime Package Controll'
+    sudo -u $EX_USER curl -o $HOME/Package\ Control.sublime-package https://sublime.wbond.net/Package%20Control.sublime-package
+    mv $HOME/Package\ Control.sublime-package "$subl_install_dir/Packages/"
+
+    # Add to applications list (thanks 4ndrej)
+    ln -s $subl_install_dir/sublime_text.desktop /usr/share/applications/sublime_text.desktop
+
+    # Set the icon (thanks gcaracuel)
+    sed -i.bak 's/Icon=sublime-text/Icon=\/opt\/sublime_text\/Icon\/128x128\/sublime-text.png/g' /usr/share/applications/sublime_text.desktop
+
+    installTest 'Sublime Text 3' 'subl'
+  fi
+
 done

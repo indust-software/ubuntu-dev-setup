@@ -10,6 +10,7 @@ SOFTWARE=$(whiptail --title "$PROMPT_TITLE - Software" --checklist \
         "vagrant" "Vagrant (*require Virtual Box) " ON \
         "docker" "Docker " ON \
         "gimp" "Gimp " ON \
+        "subl" "Sublime Text 3" ON \
         "atom" "Atom editor " ON 3>&1 1>&2 2>&3)
 
 exitstatus=$?

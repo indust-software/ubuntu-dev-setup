@@ -24,6 +24,13 @@ EX_USER="$(sh -c 'echo $SUDO_USER')"
 # DISTRIB_DESCRIPTION
 source /etc/lsb-release
 
+# Detect the architecture
+if [ "$(uname -m)" = "x86_64" ]; then
+  ARCHITECTURE="x64"
+else
+  ARCHITECTURE="x32"
+fi
+
 # Default selected environments
 ENV_NGINX=ON;
 ENV_NODE=ON;

@@ -21,6 +21,7 @@ block 'Running postinstall scripts'
 source ./.tmp/postinstall.sh
 
 block 'Running instalation tests'
+source ./helpers/postinstall
 source ./.tmp/test.sh
 
 # Remove temp directory
