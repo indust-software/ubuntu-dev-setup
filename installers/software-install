@@ -119,7 +119,8 @@ for soft in "${SOFTWARE[@]}"; do
     sed -i 's|GRUB_CMDLINE_LINUX=""|GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"|g' /etc/default/grub
     update-grub
 
-    # TODO: Inform user that reboot is required at the end of the process.
+    summaryMessage 'You should reboot your system now.'
+
     # TODO: Create automatic start of docker service for ubuntu 15 and higher according to docker installation docs
 
     installTest 'Docker' 'docker'

@@ -65,6 +65,9 @@ else
     ENVIRONMENTS=''
 fi
 
+summaryBlock 'Installation complete!'
+summaryMessage 'Thank you for using Ubuntulator. Here is installation summary.'
+
 # For each selected environment collect all required data
 for env in "${ENVIRONMENTS[@]}"; do
   # Run nginx prompt

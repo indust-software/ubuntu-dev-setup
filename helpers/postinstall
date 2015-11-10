@@ -50,3 +50,47 @@ installTest() {
   sudo -s -u $EX_USER echo "printf '$title'" >> ./.tmp/test.sh
   sudo -s -u $EX_USER echo "testApp '$2'" >> ./.tmp/test.sh
 }
+
+#######################################
+# Write summary block
+# Globals:
+#   none
+# Arguments:
+#   $1 block title
+# Returns:
+#   None
+#######################################
+summaryBlock() {
+  sudo -u $EX_USER echo "echo ''" >> ./.tmp/summary.sh
+  sudo -u $EX_USER echo "echo '$1'" >> ./.tmp/summary.sh
+  sudo -u $EX_USER echo "echo '-------------------------------'" >> ./.tmp/summary.sh
+  sudo -u $EX_USER echo "echo ''" >> ./.tmp/summary.sh
+}
+
+#######################################
+# Write summary title
+# Globals:
+#   none
+# Arguments:
+#   $1 title name
+# Returns:
+#   None
+#######################################
+summaryTitle() {
+  sudo -u $EX_USER echo "echo ''" >> ./.tmp/summary.sh
+  sudo -u $EX_USER echo "echo '${YELLOW_COLOR}+++ $1 +++${NC}'" >> ./.tmp/summary.sh
+  sudo -u $EX_USER echo "echo ''" >> ./.tmp/summary.sh
+}
+
+#######################################
+# Write summary message
+# Globals:
+#   none
+# Arguments:
+#   $1 message
+# Returns:
+#   None
+#######################################
+summaryMessage() {
+  sudo -u $EX_USER echo "echo '$1'" >> ./.tmp/summary.sh
+}

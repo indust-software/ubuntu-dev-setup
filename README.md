@@ -9,7 +9,7 @@ The main idea of ​​this script is to carry out a complex system environments
 
 The script offers two installation modes:
 - **Basic** - for those who need only basic configuration and installation with the default configuration
-- **Advanced** - for those who want to have more control over configuration, as well as the need to further simplify the software installation process.
+- **Advanced** - for those who want to have more control over configuration, as well as the need to further simplify the software installation process. **[CURRENTLY UNDER DEVELOPMENT]**
 
 You can use this script anywhere, there are no licensing restrictions. Any comments on the script are welcome, as well as the wish to contribute to this project.
 
@@ -28,7 +28,7 @@ To quickly download and run the script on a freshly installed operating system, 
 > Due to the fact that most operations require administrator privileges, you will be prompted for the root password.
 
 ```
-wget https://github.com/indust-software/ubuntu-dev-setup/archive/master.zip && unzip master.zip && cd ./ubuntu-dev-setup-master && chmod +x ./install.sh && ./install.sh
+wget https://github.com/indust-software/ubuntu-dev-setup/archive/master.zip && unzip master.zip && cd ./ubuntu-dev-setup-master && chmod +x ./install.sh && time ./install.sh
 ```
 
 **And that's it !** You should see a welcome screen. In further steps, select the items you want to install and configure. After saving all the necessary information, the script will carry out installation and configuration of your system. This process can take tens of minutes (depending on the options you chose) so...
@@ -42,7 +42,7 @@ Manual download
 
 2. Unzip (or untar) downloaded file and cd into extracted directory.
 
-3. Run `chmod +x ./install.sh && ./install.sh`.
+3. Run `chmod +x ./install.sh && time ./install.sh`.
 
 > IMPORTANT! : In project root directory there is also `setup.bash` script. Don't execute it! You should only run `install.sh` file.
 

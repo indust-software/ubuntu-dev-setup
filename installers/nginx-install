@@ -89,3 +89,9 @@ openssl req -x509 \
 installTest 'nginx' 'nginx'
 installTest 'mysql' 'mysql'
 installTest 'PHP' 'php5-fpm'
+
+summaryTitle 'Installed Nginx server'
+summaryMessage 'You can open below links now:'
+summaryMessage 'http://localhost'
+summaryMessage 'https://localhost'
+summaryMessage 'https://localhost/phpmyadmin'

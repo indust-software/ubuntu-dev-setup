@@ -23,6 +23,10 @@ source ./.tmp/postinstall.sh
 block 'Running instalation tests'
 source ./helpers/postinstall
 source ./.tmp/test.sh
+source ./.tmp/summary.sh
 
 # Remove temp directory
-rm -rf ./.tmp
+if [ -f  ./.tmp ];
+then
+   rm -rf ./.tmp
+fi
