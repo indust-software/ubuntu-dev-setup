@@ -26,3 +26,5 @@ if [ "$GOLANG_VERSION" == '1.5' ]; then
   postinstall 'export GOROOT_BOOTSTRAP=$GOROOT'
   postinstall 'gvm install go1.5'
 fi
+
+installTest 'GVM' 'gvm'

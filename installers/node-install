@@ -50,3 +50,11 @@ apt-get -y -qq install ruby ruby-dev graphicsmagick
 gem install sass
 gem install compass
 gem install livingstyleguide
+
+
+installTest 'Node.js' 'node'
+installTest 'NPM' 'npm'
+installTest 'Ruby' 'ruby'
+installTest 'sass' 'sass'
+installTest 'compass' 'compass'
+installTest 'livingstyleguide' 'livingstyleguide'

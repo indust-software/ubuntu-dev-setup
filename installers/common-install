@@ -15,3 +15,6 @@ info 'Create post install GIT configuration'
 postinstall 'info "Configure GIT username and email"'
 postinstall "git config --global user.name \"$GIT_USER\""
 postinstall "git config --global user.email $GIT_EMAIL"
+
+installTest 'git' 'git'
+installTest 'Midnight Commander' 'mc'

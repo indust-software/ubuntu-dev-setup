@@ -20,5 +20,8 @@ block 'Running postinstall scripts'
 
 source ./.tmp/postinstall.sh
 
-info 'Remove temp directory and all files'
+block 'Running instalation tests'
+source ./.tmp/test.sh
+
+# Remove temp directory
 rm -rf ./.tmp
