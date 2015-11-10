@@ -9,7 +9,8 @@ block 'Common instalation and configuration'
 info 'Installing common system packages...'
 apt-get -y -qq update
 apt-get -y -qq install \
-  git graphicsmagick curl mercurial make binutils gcc build-essential mc libxss1 libappindicator1 libindicator7
+  git graphicsmagick curl mercurial make binutils gcc build-essential mc libxss1 libappindicator1 libindicator7 \
+  openssl libssl-dev
 
 info 'Create post install GIT configuration'
 postinstall 'info "Configure GIT username and email"'
