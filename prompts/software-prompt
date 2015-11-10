@@ -8,6 +8,7 @@ SOFTWARE=$(whiptail --title "$PROMPT_TITLE - Software" --checklist \
         "skype" "Skype for linux " ON \
         "vbox" "Virtual Box 5.0 " ON \
         "vagrant" "Vagrant (*require Virtual Box) " ON \
+        "docker" "Docker " ON \
         "gimp" "Gimp " ON \
         "atom" "Atom editor " ON 3>&1 1>&2 2>&3)
 

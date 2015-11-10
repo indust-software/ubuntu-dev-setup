@@ -82,7 +82,6 @@ for soft in "${SOFTWARE[@]}"; do
     info 'Downloading latest Vagrant package...'
     sudo -u $EX_USER wget https://releases.hashicorp.com/vagrant/ -O ./.tmp/vagrant_index.html
     parsed_link=$( awk 'BEGIN{ RS="<a *href *= *\""} NR>1 {sub(/".*/,"");print $1; exit; }' ./.tmp/vagrant_index.html)
-    rm ./.tmp/vagrant_index.html
     IFS='/' read -ra link_parts <<< "$parsed_link"
     wget https://releases.hashicorp.com/vagrant/${link_parts[2]}/vagrant_${link_parts[2]}_x86_64.deb -O ./.tmp/vagrant.deb
 
@@ -90,6 +89,41 @@ for soft in "${SOFTWARE[@]}"; do
     debinstall ./.tmp/vagrant.deb
 
     installTest 'Vagrant' 'vagrant'
+  fi
+
+  if [ "$soft" == '"docker"' ]; then
+    info 'Preparing for docker installation...'
+    apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+    echo "deb https://apt.dockerproject.org/repo ubuntu-$DISTRIB_CODENAME main" | tee /etc/apt/sources.list.d/docker.list
+    apt-get -y -qq update
+    apt-cache policy docker-engine
+
+    if [ $DISTRIB_CODENAME == 'trusty' ]; then
+      info 'Installing docker requirements...'
+      apt-get -y -qq install linux-image-generic-lts-trusty linux-headers-generic-lts-trusty xserver-xorg-lts-trusty libgl1-mesa-glx-lts-trusty
+    fi
+
+    info 'Installing docker...'
+    apt-get -y -qq install docker-engine
+
+    info 'Starting docker engine...'
+    service docker start
+
+    info 'Veryfying docker installation...'
+    docker run hello-world
+
+    info 'Creating docker user group...'
+    usermod -aG docker $EX_USER
+
+    info 'Adjusting memory and swap accounting...'
+    sed -i 's|GRUB_CMDLINE_LINUX=""|GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"|g' /etc/default/grub
+    update-grub
+
+    # TODO: Inform user that reboot is required at the end of the process.
+    # TODO: Create automatic start of docker service for ubuntu 15 and higher according to docker installation docs
+
+    installTest 'Docker' 'docker'
+
   fi
 
 done
