@@ -46,7 +46,8 @@ for soft in "${SOFTWARE[@]}"; do
   if [ "$soft" == '"vbox"' ]; then
     info 'Adding Virtual Box latest repository...'
     apt-add-repository "deb http://download.virtualbox.org/virtualbox/debian $DISTRIB_CODENAME contrib"
-    sudo -u $EX_USER wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add
+    sudo -u $EX_USER wget https://www.virtualbox.org/download/oracle_vbox.asc -O ./.tmp/vbox.key
+    apt-key add ./.tmp/vbox.key
 
     info 'Installing Virtual Box...'
     apt-get -y -qq update
@@ -64,7 +65,7 @@ for soft in "${SOFTWARE[@]}"; do
     apt-get -y -qq update
     apt-get -y -qq install skype
 
-    installTest 'Skype' ''
+    installTest 'Skype' 'skype'
   fi
 
   if [ "$soft" == '"gimp"' ]; then

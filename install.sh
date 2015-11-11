@@ -19,9 +19,10 @@ sudo bash ./setup.bash
 block 'Running postinstall scripts'
 
 source ./.tmp/postinstall.sh
+source ./helpers/postinstall
 
 block 'Running instalation tests'
-source ./helpers/postinstall
+source $HOME/.bashrc
 source ./.tmp/test.sh
 source ./.tmp/summary.sh
 
