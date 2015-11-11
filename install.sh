@@ -10,24 +10,22 @@ mkdir ./.tmp
 # create empty post install script
 touch ./.tmp/postinstall.sh
 # make sure all paths are loaded after instalation
-echo 'source $HOME/.bashrc' >> ./.tmp/postinstall.sh
+echo 'source $HOME/.bashrc' > ./.tmp/postinstall.sh
 
 # execute main instalation script as root
 chmod +x ./setup.bash
 sudo bash ./setup.bash
 
 block 'Running postinstall scripts'
-
 source ./.tmp/postinstall.sh
 source ./helpers/postinstall
 
 block 'Running instalation tests'
-source $HOME/.bashrc
+export PATH="$HOME/.linuxbrew/bin:$PATH"
 source ./.tmp/test.sh
 source ./.tmp/summary.sh
 
 # Remove temp directory
-if [ -f  ./.tmp ];
-then
+if [ -d "./.tmp" ]; then
    rm -rf ./.tmp
 fi

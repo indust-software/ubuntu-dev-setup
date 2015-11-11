@@ -101,7 +101,10 @@ fi
 info 'Updating system repositories...'
 apt-get -qq update
 
-# Install environments
+# Perform common instalation
+source ./installers/common-install;
+
+# Install software
 if [ "$USE_NGINX" == 'true' ]
   then source ./installers/nginx-install;
 fi
@@ -113,8 +116,6 @@ fi
 if [ "$USE_GOLANG" == 'true' ]
   then source ./installers/go-install;
 fi
-
-source ./installers/common-install;
 
 if [ "$GIT_SSH_SERVICES" != "" ]; then
   source ./installers/git-ssh-installer;
