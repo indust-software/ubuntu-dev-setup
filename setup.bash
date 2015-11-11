@@ -24,6 +24,13 @@ EX_USER="$(sh -c 'echo $SUDO_USER')"
 # DISTRIB_DESCRIPTION
 source /etc/lsb-release
 
+# Detect the architecture
+if [ "$(uname -m)" = "x86_64" ]; then
+  ARCHITECTURE="x64"
+else
+  ARCHITECTURE="x32"
+fi
+
 # Default selected environments
 ENV_NGINX=ON;
 ENV_NODE=ON;
@@ -31,7 +38,9 @@ ENV_GO=ON;
 
 # Default paths
 NGINX_WWW_PATH=$HOME"/www";
+NGINX_SSL_OPTIONS='/C=US/ST=Denial/L=Springfield/O=Dis/CN=www.example.com'
 SCRIPT_DIR="$(pwd)"
+SSL_PATH=$HOME/.ssl
 
 source ./helpers/postinstall;
 source ./helpers/debinstall;
@@ -55,6 +64,9 @@ if [ $exitstatus = 0 ]; then
 else
     ENVIRONMENTS=''
 fi
+
+summaryBlock 'Installation complete!'
+summaryMessage 'Thank you for using Ubuntulator. Here is installation summary.'
 
 # For each selected environment collect all required data
 for env in "${ENVIRONMENTS[@]}"; do
@@ -89,7 +101,10 @@ fi
 info 'Updating system repositories...'
 apt-get -qq update
 
-# Install environments
+# Perform common instalation
+source ./installers/common-install;
+
+# Install software
 if [ "$USE_NGINX" == 'true' ]
   then source ./installers/nginx-install;
 fi
@@ -101,8 +116,6 @@ fi
 if [ "$USE_GOLANG" == 'true' ]
   then source ./installers/go-install;
 fi
-
-source ./installers/common-install;
 
 if [ "$GIT_SSH_SERVICES" != "" ]; then
   source ./installers/git-ssh-installer;

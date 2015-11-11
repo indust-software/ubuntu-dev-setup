@@ -46,7 +46,8 @@ for soft in "${SOFTWARE[@]}"; do
   if [ "$soft" == '"vbox"' ]; then
     info 'Adding Virtual Box latest repository...'
     apt-add-repository "deb http://download.virtualbox.org/virtualbox/debian $DISTRIB_CODENAME contrib"
-    sudo -u $EX_USER wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add
+    sudo -u $EX_USER wget https://www.virtualbox.org/download/oracle_vbox.asc -O ./.tmp/vbox.key
+    apt-key add ./.tmp/vbox.key
 
     info 'Installing Virtual Box...'
     apt-get -y -qq update
@@ -64,7 +65,7 @@ for soft in "${SOFTWARE[@]}"; do
     apt-get -y -qq update
     apt-get -y -qq install skype
 
-    installTest 'Skype' ''
+    installTest 'Skype' 'skype'
   fi
 
   if [ "$soft" == '"gimp"' ]; then
@@ -82,7 +83,6 @@ for soft in "${SOFTWARE[@]}"; do
     info 'Downloading latest Vagrant package...'
     sudo -u $EX_USER wget https://releases.hashicorp.com/vagrant/ -O ./.tmp/vagrant_index.html
     parsed_link=$( awk 'BEGIN{ RS="<a *href *= *\""} NR>1 {sub(/".*/,"");print $1; exit; }' ./.tmp/vagrant_index.html)
-    rm ./.tmp/vagrant_index.html
     IFS='/' read -ra link_parts <<< "$parsed_link"
     wget https://releases.hashicorp.com/vagrant/${link_parts[2]}/vagrant_${link_parts[2]}_x86_64.deb -O ./.tmp/vagrant.deb
 
@@ -90,6 +90,75 @@ for soft in "${SOFTWARE[@]}"; do
     debinstall ./.tmp/vagrant.deb
 
     installTest 'Vagrant' 'vagrant'
+  fi
+
+  if [ "$soft" == '"docker"' ]; then
+    info 'Preparing for docker installation...'
+    apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+    echo "deb https://apt.dockerproject.org/repo ubuntu-$DISTRIB_CODENAME main" | tee /etc/apt/sources.list.d/docker.list
+    apt-get -y -qq update
+    apt-cache policy docker-engine
+
+    if [ $DISTRIB_CODENAME == 'trusty' ]; then
+      info 'Installing docker requirements...'
+      apt-get -y -qq install linux-image-generic-lts-trusty linux-headers-generic-lts-trusty xserver-xorg-lts-trusty libgl1-mesa-glx-lts-trusty
+    fi
+
+    info 'Installing docker...'
+    apt-get -y -qq install docker-engine
+
+    info 'Starting docker engine...'
+    service docker start
+
+    info 'Veryfying docker installation...'
+    docker run hello-world
+
+    info 'Creating docker user group...'
+    usermod -aG docker $EX_USER
+
+    info 'Adjusting memory and swap accounting...'
+    sed -i 's|GRUB_CMDLINE_LINUX=""|GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"|g' /etc/default/grub
+    update-grub
+
+    summaryMessage 'You should reboot your system now.'
+
+    # TODO: Create automatic start of docker service for ubuntu 15 and higher according to docker installation docs
+
+    installTest 'Docker' 'docker'
+
+  fi
+
+  if [ "$soft" == '"subl"' ]; then
+    # ###
+    # Big thanks to simonewebdesign for this installation procedure
+    # ###
+    info 'Fetch the latest sublime build version number...'
+    subl_build=$(echo $(curl http://www.sublimetext.com/3) | sed -rn "s#.*The latest build is ([0-9]+)..*#\1#p")
+
+    subl_url="http://c758482.r82.cf2.rackcdn.com/sublime_text_3_build_{$subl_build}_{$ARCHITECTURE}.tar.bz2"
+    subl_install_dir="/opt/sublime_text"
+
+    info 'Installing Sublime Text 3'
+    sudo -u $EX_USER curl -o $HOME/st3.tar.bz2 $subl_url
+    if sudo -u $EX_USER tar -xf $HOME/st3.tar.bz2 --directory=$HOME; then
+      # Remove the installation folder and the symlink, they might already exist
+      rm -rf $subl_install_dir /bin/subl
+      mv $HOME/sublime_text_3 $subl_install_dir
+      ln -s $subl_install_dir/sublime_text /bin/subl
+    fi
+    sudo -u $EX_USER rm $HOME/st3.tar.bz2
+
+    info 'Installing Sublime Package Controll'
+    sudo -u $EX_USER curl -o $HOME/Package\ Control.sublime-package https://sublime.wbond.net/Package%20Control.sublime-package
+    mv $HOME/Package\ Control.sublime-package "$subl_install_dir/Packages/"
+
+    # Add to applications list (thanks 4ndrej)
+    ln -s $subl_install_dir/sublime_text.desktop /usr/share/applications/sublime_text.desktop
+
+    # Set the icon (thanks gcaracuel)
+    sed -i.bak 's/Icon=sublime-text/Icon=\/opt\/sublime_text\/Icon\/128x128\/sublime-text.png/g' /usr/share/applications/sublime_text.desktop
+
+    installTest 'Sublime Text 3' 'subl'
   fi
 
 done

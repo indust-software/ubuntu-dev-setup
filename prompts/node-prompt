@@ -10,6 +10,7 @@ NODE_PACKAGES=$(whiptail --title "$PROMPT_TITLE - Node Packages" --checklist \
               "yo" "Yeoman             " ON \
               "generator-generator" "Yeoman generic generator  " ON \
               "generator-wordpress" "Yeoman wordpress generator  " ON \
+              "coffee-script" "Coffee Script  " ON \
               "webpack" "Webpack" ON \
               "grunt-cli" "Grunt command line interface    " ON \
               "grunt" "Grunt task runner" ON \

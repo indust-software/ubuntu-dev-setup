@@ -15,6 +15,10 @@ sudo -u $EX_USER mkdir $key_path
 sudo -u $EX_USER echo "echo $GITHUB_SSH_PASS" > ./.tmp/github_ps.password
 sudo -u $EX_USER echo "echo $BITBUCKET_SSH_PASS" > ./.tmp/bitbucket_ps.password
 
+summaryTitle 'Git SSH setup'
+summaryMessage 'Use below commands to copy SSH keys and paste into Github and/or Bitbucket settings.'
+summaryMessage ''
+
 if [ "$GITHUB_SSH_PASS" != "" ]; then
   info 'Creating post install instructions for Github SSH'
   postinstall "cd $key_path"
@@ -23,6 +27,10 @@ if [ "$GITHUB_SSH_PASS" != "" ]; then
   postinstall 'eval "$(ssh-agent -s)"'
   postinstall "cat $key_path/github_rsa | SSH_ASKPASS=$SCRIPT_DIR/.tmp/github_ps.password ssh-add"
   postinstall "cd $SCRIPT_DIR"
+
+  summaryMessage 'Github SSH:'
+  summaryMessage "xclip -sel clip < $key_path/github_rsa.pub"
+  summaryMessage ''
 fi
 
 if [ "$BITBUCKET_SSH_PASS" != "" ]; then
@@ -33,4 +41,8 @@ if [ "$BITBUCKET_SSH_PASS" != "" ]; then
   postinstall 'eval "$(ssh-agent -s)"'
   postinstall "cat $key_path/bitbucket_rsa | SSH_ASKPASS=$SCRIPT_DIR/.tmp/bitbucket_ps.password ssh-add"
   postinstall "cd $SCRIPT_DIR"
+
+  summaryMessage 'Bitbucket SSH:'
+  summaryMessage "xclip -sel clip < $key_path/bitbucket_rsa.pub"
+  summaryMessage ''
 fi
